@@ -1,0 +1,72 @@
+{
+  "user": {
+    "name": "Alex",
+    "role": "Startup Founder",
+    "timezone": "Asia/Shanghai",
+    "chronotype": "morning",
+    "workday_start": "08:00",
+    "workday_end": "19:00"
+  },
+  "signals": {
+    "sleep_hours": 7.8,
+    "sleep_quality": 0.86,
+    "energy": 0.82,
+    "focus": 0.78,
+    "creativity": 0.74,
+    "exercise_minutes": 25,
+    "prior_deep_work_minutes": 0,
+    "prior_meeting_minutes": 0
+  },
+  "tasks": [
+    {
+      "title": "Prepare investor pitch",
+      "description": "Shape the fundraising narrative and the strategic market argument.",
+      "duration_minutes": 90,
+      "priority": 5,
+      "deadline_time": "17:00",
+      "preferred_period": "any"
+    },
+    {
+      "title": "Review financial report",
+      "description": "Analyze runway, revenue variance, and quarterly unit economics.",
+      "duration_minutes": 60,
+      "priority": 4,
+      "deadline_time": "18:00",
+      "preferred_period": "any"
+    },
+    {
+      "title": "Product brainstorming",
+      "description": "Design concepts for the next onboarding experience.",
+      "duration_minutes": 60,
+      "priority": 3,
+      "preferred_period": "any"
+    },
+    {
+      "title": "Reply to email backlog",
+      "description": "Process routine internal email and approvals.",
+      "duration_minutes": 45,
+      "priority": 2,
+      "preferred_period": "afternoon"
+    }
+  ],
+  "calendar": [
+    {
+      "title": "Leadership stand-up",
+      "start": "09:30",
+      "end": "10:00",
+      "category": "meeting"
+    },
+    {
+      "title": "Engineering candidate interview",
+      "start": "13:30",
+      "end": "14:30",
+      "category": "interview"
+    },
+    {
+      "title": "Board update",
+      "start": "16:00",
+      "end": "17:00",
+      "category": "meeting"
+    }
+  ]
+}
