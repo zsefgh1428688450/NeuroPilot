@@ -49,7 +49,7 @@ If PowerShell does not expose `python`, use the Python executable installed on y
 
 ## Production deployment
 
-`render.yaml` defines an always-on Render web service with a 1 GB persistent disk for the local SQLite run history. Create the service from this repository with a paid Render plan, then Render exposes a public HTTPS URL and redeploys when `main` changes.
+`render.yaml` defines a free Render web service. Render exposes a public HTTPS URL and redeploys when `main` changes. The free tier can sleep after inactivity and its local SQLite run history is ephemeral; choose a paid instance plus persistent storage before relying on it for real user data.
 
 ## Test
 
