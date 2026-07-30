@@ -43,9 +43,13 @@ pip install -e ".[dev]"
 uvicorn app.main:app --app-dir backend --reload
 ```
 
-Open [http://localhost:8000](http://localhost:8000). Interactive API documentation is available at [http://localhost:8000/docs](http://localhost:8000/docs).
+Open [http://localhost:8000](http://localhost:8000). Interactive API documentation is available at [http://localhost:8000/docs](http://localhost:8000/docs). These URLs are available only on the computer running the server.
 
 If PowerShell does not expose `python`, use the Python executable installed on your machine or your preferred environment manager.
+
+## Production deployment
+
+`render.yaml` defines an always-on Render web service with a 1 GB persistent disk for the local SQLite run history. Create the service from this repository with a paid Render plan, then Render exposes a public HTTPS URL and redeploys when `main` changes.
 
 ## Test
 
@@ -101,4 +105,3 @@ tests/               # Forecast, workflow and API tests
 ## License
 
 MIT
-

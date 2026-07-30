@@ -8,6 +8,6 @@ __pycache__/
 .env.*
 !.env.example
 data/neuropilot.db
+work/
 dist/
 build/
-

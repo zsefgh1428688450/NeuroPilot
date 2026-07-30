@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: neuropilot
+    runtime: python
+    region: singapore
+    plan: starter
+    buildCommand: pip install .
+    startCommand: uvicorn app.main:app --app-dir backend --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    autoDeployTrigger: commit
+    envVars:
+      - key: NEUROPILOT_DB_PATH
+        value: /var/data/neuropilot.db
+    disk:
+      name: neuropilot-data
+      mountPath: /var/data
+      sizeGB: 1
