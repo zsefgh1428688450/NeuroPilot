@@ -30,9 +30,7 @@ function bindRange(inputId, outputId, formatter) {
 }
 
 async function loadDemo() {
-  const response = await fetch("/api/demo");
-  if (!response.ok) throw new Error("Could not load the demo scenario.");
-  state.demo = await response.json();
+  state.demo = window.NEUROPILOT_DEMO;
   hydrateInputs();
   renderTasks();
   renderFixedSchedule();
@@ -111,16 +109,7 @@ async function optimize() {
   button.disabled = true;
   button.querySelector("span").textContent = "Running agents…";
   try {
-    const response = await fetch("/api/optimize", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(buildRequest()),
-    });
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.detail || "Optimization failed.");
-    }
-    state.result = await response.json();
+    state.result = window.NeuroPilotEngine.optimize(buildRequest());
     renderResult();
     showToast("Cognitive plan ready for your review.");
   } catch (error) {
@@ -213,16 +202,7 @@ function updateApprovalStatus(status) {
 
 async function decide(decision) {
   if (!state.result) return;
-  const response = await fetch(`/api/runs/${state.result.run_id}/decision`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ decision }),
-  });
-  if (!response.ok) {
-    showToast("Could not record the decision.");
-    return;
-  }
-  state.result = await response.json();
+  state.result.status = decision === "approve" ? "approved" : "rejected";
   updateApprovalStatus(state.result.status);
   showToast(decision === "approve" ? "Plan approved locally. No external calendar was changed." : "Proposal rejected. Your calendar is unchanged.");
 }
