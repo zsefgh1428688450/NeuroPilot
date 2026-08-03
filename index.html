@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="NeuroPilot cognitive energy scheduling demo" />
+    <title>NeuroPilot — Cognitive Energy, Orchestrated</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="#overview" aria-label="NeuroPilot home">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span>NeuroPilot</span>
+        </a>
+
+        <nav class="nav" aria-label="Primary navigation">
+          <a class="nav-item active" href="#overview"><span>01</span>Overview</a>
+          <a class="nav-item" href="#schedule"><span>02</span>Schedule</a>
+          <a class="nav-item" href="#trace"><span>03</span>Agent trace</a>
+        </nav>
+
+        <div class="sidebar-note">
+          <span class="eyebrow light">Local-first MVP</span>
+          <p>Your data stays in the local demo. Calendar changes always require approval.</p>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Cognitive command center</p>
+            <h1 id="greeting">Good morning, Alex.</h1>
+          </div>
+          <div class="topbar-actions">
+            <div class="live-pill"><span></span>Offline model</div>
+            <button class="button button-dark" id="run-button" type="button">
+              <span>Optimize my day</span>
+              <b aria-hidden="true">↗</b>
+            </button>
+          </div>
+        </header>
+
+        <section class="hero section-anchor" id="overview">
+          <div class="hero-copy">
+            <p class="eyebrow">Today’s cognitive weather</p>
+            <h2>Put your best thinking<br />where it matters.</h2>
+            <p class="hero-subtitle" id="coach-summary">
+              NeuroPilot will map each task to your predicted cognitive capacity, then ask before changing anything.
+            </p>
+            <div class="hero-stats">
+              <div><strong id="peak-window">—</strong><span>Peak window</span></div>
+              <div><strong id="tasks-placed">0 / 4</strong><span>Tasks placed</span></div>
+              <div><strong id="average-fit">—</strong><span>Average fit</span></div>
+            </div>
+          </div>
+
+          <div class="signal-panel card-inverse">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow light">Morning calibration</p>
+                <h3>How are you arriving?</h3>
+              </div>
+              <span class="date-chip" id="target-date">Today</span>
+            </div>
+            <label class="signal-control">
+              <span><b>Sleep</b><output id="sleep-output">7.8 h</output></span>
+              <input id="sleep-input" type="range" min="3" max="10" step="0.1" value="7.8" />
+            </label>
+            <label class="signal-control">
+              <span><b>Energy</b><output id="energy-output">82%</output></span>
+              <input id="energy-input" type="range" min="0" max="1" step="0.01" value="0.82" />
+            </label>
+            <label class="signal-control">
+              <span><b>Focus</b><output id="focus-output">78%</output></span>
+              <input id="focus-input" type="range" min="0" max="1" step="0.01" value="0.78" />
+            </label>
+            <label class="signal-control">
+              <span><b>Creative readiness</b><output id="creative-output">74%</output></span>
+              <input id="creative-input" type="range" min="0" max="1" step="0.01" value="0.74" />
+            </label>
+          </div>
+        </section>
+
+        <section class="capacity-grid" aria-label="Cognitive capacity forecast">
+          <article class="capacity-card tone-lime">
+            <div class="capacity-ring" id="ring-executive"><span id="metric-executive">—</span></div>
+            <div><p>Executive</p><span>Strategy & decisions</span></div>
+          </article>
+          <article class="capacity-card tone-violet">
+            <div class="capacity-ring" id="ring-attention"><span id="metric-attention">—</span></div>
+            <div><p>Attention</p><span>Focus & analysis</span></div>
+          </article>
+          <article class="capacity-card tone-orange">
+            <div class="capacity-ring" id="ring-creative"><span id="metric-creative">—</span></div>
+            <div><p>Creative</p><span>Ideas & synthesis</span></div>
+          </article>
+          <article class="capacity-card tone-blue">
+            <div class="capacity-ring" id="ring-social"><span id="metric-social">—</span></div>
+            <div><p>Social</p><span>Meetings & influence</span></div>
+          </article>
+        </section>
+
+        <section class="card forecast-card">
+          <div class="panel-heading dark-text">
+            <div>
+              <p class="eyebrow">Half-hour forecast</p>
+              <h3>Cognitive energy curve</h3>
+            </div>
+            <div class="legend"><span class="legend-peak"></span>High-value window</div>
+          </div>
+          <div class="forecast-chart" id="forecast-chart" aria-label="Cognitive energy timeline">
+            <div class="chart-empty">Run the agent to generate today’s forecast.</div>
+          </div>
+        </section>
+
+        <section class="workspace-grid section-anchor" id="schedule">
+          <article class="card task-card">
+            <div class="panel-heading dark-text">
+              <div>
+                <p class="eyebrow">Task inbox</p>
+                <h3>What needs your brain</h3>
+              </div>
+              <span class="count-chip" id="task-count">4 tasks</span>
+            </div>
+            <div class="task-list" id="task-list"></div>
+          </article>
+
+          <article class="card schedule-card">
+            <div class="panel-heading dark-text">
+              <div>
+                <p class="eyebrow">Proposed day</p>
+                <h3>Cognition-aware schedule</h3>
+              </div>
+              <span class="pending-chip" id="approval-status">Awaiting run</span>
+            </div>
+            <div class="schedule-list" id="schedule-list">
+              <div class="chart-empty">Your fixed calendar is ready. Optimize to place flexible tasks.</div>
+            </div>
+            <div class="recovery-note hidden" id="recovery-note"></div>
+            <div class="approval-bar hidden" id="approval-bar">
+              <div>
+                <strong>Human checkpoint</strong>
+                <span>Review the proposal before any calendar integration.</span>
+              </div>
+              <div class="approval-actions">
+                <button class="button button-ghost" id="reject-button" type="button">Reject</button>
+                <button class="button button-accent" id="approve-button" type="button">Approve plan</button>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <section class="card trace-card section-anchor" id="trace">
+          <div class="panel-heading dark-text">
+            <div>
+              <p class="eyebrow">Explainable workflow</p>
+              <h3>How NeuroPilot decided</h3>
+            </div>
+            <span class="confidence-chip" id="review-confidence">No run yet</span>
+          </div>
+          <div class="trace-list" id="trace-list">
+            <div class="trace-placeholder">
+              <span>01</span><span>02</span><span>03</span><span>04</span>
+              <p>The cognitive analyst and task analyst run in parallel, then the planner, reviewer, and coach complete the proposal.</p>
+            </div>
+          </div>
+        </section>
+
+        <footer>
+          <span>NeuroPilot MVP · Cognitive signals, not medical advice.</span>
+          <a href="/docs">Open API docs ↗</a>
+        </footer>
+      </main>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="./demo.js" defer></script>
+    <script src="./engine.js" defer></script>
+    <script src="./app.js" defer></script>
+  </body>
+</html>
